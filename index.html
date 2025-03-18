@@ -5,93 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Launch Countdown</title>
     <style>
-        /* Background with animated gradient */
+        /* Background Styling */
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            color: white;
+            color: #fff;
             height: 100vh;
             margin: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            background: linear-gradient(to bottom, #1e3c72, #2a5298); /* Deep Blue Gradient */
             overflow: hidden;
-            background: linear-gradient(45deg, #000428, #004e92);
-            background-size: 400% 400%;
-            animation: backgroundAnimation 10s infinite alternate;
         }
 
-        /* Gradient animation */
-        @keyframes backgroundAnimation {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+        /* Title Styling */
+        h1 {
+            font-size: 2.6em;
+            color: #ffd700; /* Golden Text */
+            margin-bottom: 10px;
         }
 
         h2 {
-            font-size: 2em;
-            text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.8);
-            opacity: 0;
-            animation: fadeIn 2s forwards;
+            font-size: 1.6em;
+            color: #f5f5f5;
+            margin-bottom: 20px;
         }
 
         p {
-            font-size: 1.5em;
-            opacity: 0;
-            animation: fadeIn 2s forwards 0.5s;
-        }
-
-        #countdown {
-            font-size: 3em;
+            font-size: 1.3em;
             font-weight: bold;
-            padding: 20px 40px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 183, 255, 0.7);
-            display: inline-block;
-            opacity: 0;
-            animation: fadeIn 2s forwards 1s, glow 1.5s infinite alternate;
+            color: #fff;
+            margin-bottom: 20px;
         }
 
-        /* Fade-in effect */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Glowing Countdown Circle */
+        .magic-ball {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 0) 70%);
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+            animation: glow 2s infinite alternate;
         }
 
-        /* Fade-out before redirection */
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
+        /* Soft Glow Animation */
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+                transform: scale(1);
+            }
+            to {
+                box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
+                transform: scale(1.05);
+            }
         }
+
     </style>
 </head>
 <body>
-    
-    <h1> ഹയാത്തുൽ ഇസ്‌ലാം മദ്രസ<br>പൊട്ടിപ്പാറ</h1>
+
+    <h1>ഹയാത്തുൽ ഇസ്‌ലാം മദ്രസ<br>പൊട്ടിപ്പാറ</h1>
     <h2>Our Result Portal is Launching Soon!</h2>
+
     <p>Stay tuned! The site will be open in</p>
-    <div id="countdown"></div>
+
+    <!-- Countdown Magic Ball -->
+    <div class="magic-ball" id="countdownText">00:00:00:00</div>
 
     <script>
-        // Set the activation time: March 18, 2025, 5:30 PM (YYYY, MM-1, DD, HH, MM, SS)
-        var activationTime = new Date(2025, 2, 18, 17, 30, 0).getTime();
+        // Set the launch time: March 19, 2025, 8:00 AM
+        var activationTime = new Date(2025, 2, 19, 8, 0, 0).getTime();
 
         function updateCountdown() {
             var now = new Date().getTime();
             var timeLeft = activationTime - now;
 
             if (timeLeft > 0) {
-                var hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-                document.getElementById("countdown").innerHTML =
-                    `${hours}h ${minutes}m ${seconds}s`;
+                document.getElementById("countdownText").innerText = 
+                    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
             } else {
-                document.body.style.animation = "fadeOut 1s forwards";
+                document.body.style.opacity = "0";
                 setTimeout(() => {
-                    window.location.href = "https://nas-44.github.io/madrasaresult/"; // Redirect to main site
+                    window.location.href = "https://nas-44.github.io/madrasaresult/";
                 }, 1000);
             }
         }
